@@ -1,0 +1,520 @@
+OCA JAVA 8 Notas.
+
+
+*Multiples clases pueden definirse en un archivo pero solo una puede ser publica. La clasepublica debe coincidir con el nombre del archivo.
+* Se pueden declarar las clases que se desien dentro de un file.java siempre y cuando se sigan las siguientes reglas.
+	1. Solo se puede haber una clase publica dento de un file.java de lo contrario "error de compilacion"
+	2. Cuando existe una clase public dentro de un archivo file.java el nombre del archivo tiene que hacer match con el nombre de la clase.
+	De lo contrario "error de compilacion"
+* El metodo main es el punto de entreda de un programa
+* Se pueden pasar argumentos al metodo main con espacio pero estos van entre comillas "cadena con espacio".
+	java nameProgram "primer argumento" segundo tercero
+
+* Un comodín que finaliza una declaración de importación significa que desea importar todas las clases en ese paquete. No incluye subpaquetes que están dentro de ese.
+* Cueando se utiliza el comodin "*" para importar todas las clases de un paquete podría pensar que incluir tantas clases ralentiza su programa, pero no es así. El compilador establece lo que realmente se necesita.
+* No es necesario importar clases que estan en el mismo paquete.
+* En una instruccion import solo se puede tener un comodin "*" y este debe de estar al final.
+* Cuando se importan varios paquetes que tienen clases con el mismo nombre, el codigo compilara mientras esta clase no sea usada. Pero 
+nos arrojara un error de compilación cuando esta sea usada. Para evitar lo anterios tendriamos que especificar cual de los paquetes importados utilizara esta clase.
+	import java.util.Date;
+	import java.sql.*;
+En los import anteriores ya no marcaria error al utilizar la clase Date ya que se la importacion explicita tiene precedencia sobre la implicita.
+
+* java.lang. Es un paquete importado automaticamente
+* Para ejecutar archivos que estan dentro de un paquete, despues de compilarlos no posicionamos sobre el directorio raiz y ejecutamos el comando "java rutaPaquete.nombreClase"
+
+CLASSPATH: variable es una forma de indicar a las aplicaciones, incluidas las herramientas JDK, dónde buscar las clases de usuarios.
+
+Constructores
+
+Un constructor es un metodo especial encargado de crear he inicializar el estado de los objetos.
+
+Un constrcutor solo lleva modificador de acceso y el nombre es igual al de la clase.
+Si el nombre es igual al de la clase pero tiene un tipo de retorno, este es un metodo normal.
+
+Objeto x; //Esto le da a java un espacio en memoria para almacenar una referencia.
+x = new Objeto(); // Esto crea el (objeto), la referencia a la clase.
+
+Un metodo sin cuerpo envia un error de compilacion
+	public void metodo();
+
+Orden de inicialización.
+	
+Cuando un bloque aparaece a nivel de los metodos se llaman inicializadores de instancia.
+El orden importa para los campos y bloques de código. No puede referirse a una variable antes de que sea creada.
+
+			****************
+			* public class Test2 {
+			*					
+			*	{
+			*		System.out.println("Bloque anonimo" + x); // ERROR DE COMPILACION
+			*	}
+			*	
+			*	int x = 0;	
+			*****************	
+//orden inicializacion
+1. Si existe un bloque de inicializacion static este se ejecuta primero. Este bloque estatico tambien se ejecutara Siempre que se haga referencia a un metodo statico de la clase.
+2. 	Los campos y los bloques de inicialización de instancia se ejecutan en el orden en que aparecen en el archivo siempre que se cree un objeto de el.
+3. El constructor se ejecuta después de que se hayan ejecutado todos los campos y los bloques de inicialización de instancias.
+
+Primitivos
+
+Java tiene ocho tipos de datos integrados, conocidos como tipos primitivos de Java. Estos ocho tipos de datos representan los bloques de construcción para los objetos de Java, porque todos los objetos de Java son solo una colección compleja de estos tipos de datos primitivos.
+
+	Un flotante sin f marca un error de compilacion.
+	Un flotante requiere la letra f que sigue al número para que Java sepa que es un flotante. "23.4f".
+	Un byte puede contener un valor de -128 a 127
+
+	Cuando un número está presente en el código, se llama literal. Por defecto cualquier literal declarada java asumira que se esta definiendo un int.
+	
+	long x = 9898989898; "x" sigue siendo un entero para cambiar esto tenemos que agregar la letra "l o L"
+
+Bases Numericos Soportados
+
+Decimal:  Base 10 (0-9)
+Octatal:  Base 8 (0-7), Precedido de un 0 --> 012
+Exadecimal: Base 16 (0-9 A-F), Precedido de 0X ó 0x --> 0xAFD
+Binario:   Base 2 (0,1) Precedid de 0b o 0B --> 0b001
+
+Una caracteristaca nueva agregada desde java 7 es poder agregar "_" para mayor visibilidad en las literales.
+	ejemplo: double number = 121_268.98
+
+	Puede agregar guiones bajos en cualquier lugar excepto al comienzo de un literal, al final de un literal, justo antes de
+	punto decimal, o justo después de un punto decimal.
+
+Si a un primitivo le asignas null, marca error de compilacion.
+Los primitivos no tienen metodos.
+
+Una variable es un nombre para una pieza de memoria que almacena datos
+
+Se pueden declarar e inicializar muchas variable en una sola linea, pero todas deben de ser del mismo tipo.
+Ejemplo de multiple inicializacion
+String s1, s2;
+String s3 = "yes", s4 = "no";
+
+
+Identificadores
+El nombre debe comenzar con una letra o el símbolo $ o _	
+Los caracteres subsiguientes también pueden ser números.
+No puede usar el mismo nombre que una palabra reservada de Java.
+Para el nombre de las variables solo se pueden usar letras, digitos y "$" o "_"
+
+Palabras reservadas
+- native		- goto          - const
+- strictfp      - transient     - finally
+- assert        - final
+- instanceof    - synchronized
+- volatile      - true
+
+---- Inicializacion predeterminada de variables.
+
+Una variable definida dentro de un bloque (variable local), debe de ser definada antes de usarse, de lo contraio arrojara un error de compilacion ("The local variable onlyOneBranch may not have been initialized")
+
+Las variables de instancia son también llamadas fields.
+
+Las variables de instancia y clase no requieren que las inicialices, por defecto al declararlas se les asigna un valor por defecto.
+
+Los parametros de un metodo también son considerados variables locales.
+Local variables —> En el ámbito desde la declaración hasta el fin del bloque.
+Instance variables —>  En el ámbito desde la declaración hasta que garbage collected elimine el objeto. (Toda la vida del objeto)
+Class variables —> En el ámbito desde la declaración hasta el final del programa.
+
+Orden de los elementos de una CLASE
+PIC:Paquetes Import y Clases
+
+DESTROY OBJETOS
+Todos los objetos se almacenan en el HEAP, esta representa una gran cantidad de memoria no utilizada asignada a su Aplicación Java
+
+System.gc(): Este metodo le sugiere a la maquina virtual que ahora podría ser un buen momento para que Java inicie una ejecución de recolección de basura. Java es libre de ignorar la solicitud.
+
+Un objeto permanecera en el HEAP asta que ya no sea alcanzable, un objeto deja de ser alcanzable cuando:
+	■ El objeto ya no tiene referencias que lo apunten.
+	■ Todas las referencias al objeto han salido del alcance.
+	
+La referencia es una variable que tiene un nombre y se puede usar para acceder a los contenidos de un objeto.
+Un objeto se encuentra en el Heap y no tiene un nombre. Por lo tanto, no se tiene forma de acceder a un objeto directamente excepto a través de una referencia. Los objetos solo pueden ser accedido a través de una referencia. Los objetos varían en tamaño dependiendo de su definición de clase.
+Todas las referencias son del mismo tamaño, sin importar su tipo de dato, y se accede por su nombre de variable.
+
+finalize(): Este método se llama a si el recolector de basura intenta recoger el objeto, Si por algun motivo  el garbage collector falla al tratar de recoger el objeto y lo vuleve a intentar ya no es llamado este metodo.Hay que tener en cuenta que podría no ser llamado y que definitivamente no se llamará dos veces. Recuerde, finalize () solo se ejecuta cuando el objeto es elegible para la recolección de basura
+
+Caracteristicas de JAVA
+
+orientado a objetos: Significa que todo el código se define en clases y de la mayoría de esas clases se pueden crear instancias en objeto. 
+
+Encapsulation Java admite modificadores de acceso para proteger los datos de acceso y modificación no intencional.
+
+Platforma Independiente, Java es un lenguaje interpretado porque se compila en bytecode.
+
+Robusto Una de las principales ventajas de Java es que previene fugas de memoria. Java administra la memoria por sí mismo y hace la recolección de basura automáticamente. 
+
+Simple Java fue pensado para ser más simple que C ++. Además de eliminar punteros, eliminó la sobrecarga del operador. 
+
+Seguro: El código de Java se ejecuta dentro de la JVM. Esto crea un entorno limitado que dificulta que el código Java haga cosas malas en la computadora en la que se ejecuta.
+
+Hay tres tipos de variables en Java, según su alcance: variables de instancia, variables de clase y variables locales.
+--42
+1. A,B,E
+2. A
+	D. Los campos booleanos se inicializan a falso
+	y las referencias se inicializan a nulo, por lo que empty es falso y brand es nulo.
+3. B,D,E
+4. A,B
+5. C,D
+6. D
+	E Las dos primeras importaciones se pueden eliminar porque java.lang se importa automáticamente.
+	Las dos segundas importaciones se pueden eliminar porque Tank y Water están en el mismo paquete,
+	haciendo la respuesta correcta E. Si el tanque y el agua estuvieran en diferentes paquetes, uno de
+	estas dos importaciones podrían ser eliminadas. En ese caso, la respuesta sería la opción D.
+7. A,B,C
+8. B
+9. A,C,D,E
+10. B,E
+	E. La opción E es la firma canónica del método principal (). Necesitas memorizarlo.
+	La opción A es incorrecta porque el método main () debe ser público. Opciones B y F
+	son incorrectos porque el método main () debe tener un tipo de retorno anulado. La opción C es
+	incorrecto porque el método main () debe ser estático. La opción D es incorrecta porque el
+	El método main () debe llamarse main
+11. C,D
+12. G
+13. A,D
+14. F
+	D. El nombre del paquete representa cualquier carpeta debajo de la ruta actual, que es
+	named.A en este caso. La opción B es incorrecta porque los nombres de los paquetes son sensibles a mayúsculas y minúsculas, al igual que los nombres de variables y otros identificadores.
+15. A,E
+16. B,C,D
+17. A,E
+18. C,D,E
+19. B,D
+20. B,E
+21. A
+22. B,E
+23. C,D
+
+Pag. 50
+*****************UNIDAD "2" Operaciones y Declaraciones
+
+Se agrupan en unary, binary, and ternary
+
+Orden Precedencia:
+++,--
+*, /, %
++, -
+<<, >>, >>>
+<, >, <=, >=, instanceof
+==, !=
+&, ^, |,&&, ||
+
+Promocion de operacion con números Reglas
+
+1. Si dos valores tienen tipos de datos diferentes, Java promocionará automáticamente uno de los valores al mayor de los dos tipos.
+2. Si uno de los valores es entero y el otro es de coma flotante, Java promocionará al tipo de datos del valor de coma flotante.
+3.Los tipos de datos más pequeños, byte, short y char, se promueven primero en int en cualquier momento en que se usan con un operador aritmético, incluso si ninguno de los operandos es int.
+4. Después de que se haya producido toda la promoción y los operandos tengan el mismo tipo de datos, el valor resultante tendrá el mismo tipo de datos que sus operandos promocionados.
+
+* El sigo "-" solo invierte el signo de la operacion ejemplo:
+1) x = 2  --> 2
+2) x = -x --> -2
+3) x = -x --> 2
+
+* int x = 3;
+	int y = ++x * 5 / x-- + --x;
+	
+	x is 2
+	y is 7
+
+*** Overflow and Underflow
+El multiple operador nos puede ser util para omitir errores de desbordamiento.
+
+	long x = 10;
+	int y = 5;
+	y = y * x; // DOES NOT COMPILE
+	
+	//compila ya que se hace un autocast.
+	long x = 10;
+	int y = 5;
+	y *= x;
+
+El resultado de una asignación es una expresión en sí misma, igual al valor de la asignación.
+
+			long x = 5;
+			long y = (x=3);
+			System.out.println(x); // Outputs 3
+			System.out.println(y); // Also, outputs 3
+
+5 == 5.00 --> Regresa True dado que el entero del lado izquierdo  es promovido a double.
+
+Los operadores "==" y "!=" siempre regresan un boleano y solo se utilizan en los siguientes 3 escenarios.
+
+1. Compara 2 numeros primitivos.
+2. Comparando 2 valores boleanos
+3. comparando 2 objetos incluyendo null y String. 
+
+Si la utilización de estos operadores quedara fuera de los tres escenarios, arrojaria un error de compilación.
+
+Switch
+evaluado en tiempo de ejecución 
+default puede ser agregado en cualquier parte de la declaracion
+no se pueden mesclar tipos de datos si entra un entero los case tienen que ser enteros.
+
+Los datos que soporta
+	int and Integer
+	■ byte and Byte
+	■ short and Short
+	■ char and Character
+	■ int and Integer
+	■ String
+	■ enum values
+
+Los valores de los case deben de ser contantes en tiempo de ejecución.
+----------
+
+1. A,D
+2. A, B, D
+3. F
+4. B, D, F  ---> B,C,D,F
+5. C
+6. F
+7. D
+8. C, E  --> B
+9. A     --> F
+10. C    --> D
+11. A
+12. C    --> D
+13. A
+14. C
+15. E
+16. B     --> D
+17. D
+18. B
+19. B   ---> D
+20. B-
+
+************* Unidad 3 - 102
+Reglas de Concatenacion
+1. Si ambos operandos son numeros se suman
+2. Si cualquier operando es string se concatenan
+3. las expreciones se evaluan de izquiarda a derecha
+
+	System.out.println("a" + "b" + 3); // ab3
+	System.out.println(1 + 2 + "c"); // 3c
+
+Cualquier cadena como literal termina en el pull de String	
+Cadenas Metodos Comunes:
+length() : Trae la longitud de la cadena.
+charAt() : Obtine un un caracter de la cadena dado su indice, si el indice indicado es mayor a la longitud de la cadena manda exception.
+indexOf() : regresa el indice de la primera ocurrencia dada una cadena.
+	String string = "animals";
+	System.out.println(string.indexOf('a')); // 0
+	System.out.println(string.indexOf("al")); // 4
+	System.out.println(string.indexOf('a', 4)); // 4 empieza a buscar dede la posocion 4
+	System.out.println(string.indexOf("al", 5)); // -1 arroja -1 cuando no encuentra ninguna coincidencia.
+substring(): regresa parte de una cadena
+	int substring(int beginIndex) donde inicia
+	int substring(int beginIndex, int endIndex) inicia y termina (no incluye el caracter donde termina)
+Si el indice es mayor que el tamaño de la cadena error compilacion a mens que solo se pase por un indice.
+	String string = "animals";
+	System.out.println(string.substring(3, 3)); // empty string
+	System.out.println(string.substring(3, 2)); // throws exception
+	System.out.println(string.substring(3, 8)); // throws exception
+toLowerCase() and toUpperCase()
+equals() and equalsIgnoreCase()
+startsWith() and endsWith() -- Solo trabajan con string.
+	boolean startsWith(String prefix)
+	boolean endsWith(String suffix
+contains() --> acepta CharSequence y no acepta char's
+replace(): Acepta caracter,string he StringBuilder recibe dos parametros:
+	String replace(char oldChar, char newChar)
+	String replace(CharSequence oldChar, CharSequence newChar)
+trim()
+
+El encadenamiento de metodos es de izquierda a dercha.
+
+StringBuilder: Tiene 3 constructores
+	new StringBuilder();
+	new StringBuilder("animal");
+	new StringBuilder(10);
+	
+Cuando se usa el metodo "equals y == " en dos StringBuilder, se comparan objetos no cadenas.
+
+La capacidad por defauld es de 16
+charAt(), indexOf(), length(), substring() --> Funcionan = que los metodos de String.
+append(),
+insert(): Agrega caracteres en el indice solicitado
+	StringBuilder insert(int offset, String str)
+delete(): es lo contrario a insert
+deleteCharAt(): elimina caracteres
+	StringBuilder delete(int start, int end)
+	StringBuilder deleteCharAt(int index)
+reverse(): voltea la cadena
+	sb.reverse();
+
+La diferencia entre stringBuffer y StringBuilder esque StringBuffer es mas lento ya que es mas seguro para subprocesos(Hilos).
+
+**************
+Cual quier cadena calculada en tiempo de ejecucion se crea apartir de "new String()"
+
+String x = "Hello World";
+String z = " Hello World".trim();
+System.out.println(x == z); // false
+**************
+Array: Cuando se declara un arreglo de la siguiente forma, todos los elementosdel array se inicializan con el valor por default del tipo de dato.
+	
+	int[] var = new int[3];
+	int[] numbers2 = new int[] {42, 55, 99}  --> int[] numbers2 = {42, 55, 99};;
+	int[] numbers2 = {42, 55, 99} --> matriz anonima
+	
+	int[] ids, types; Este crea dos referencias de tipo int[]
+	int ids[], types; Este crea una referencia de tipo int[] y otra de int.
+	
+Arrays.toString();	
+Arrays.sort();
+
+Arrays.binarySearch(matriz, "elemento buscado");	Busca en arrays ordenados.
+Si la matriz no esta ordenada, el resultado es impredecible.
+Si el elemento buscado no se encuentra en la matrz regresa un numero negativo calculado de la siguiente forma.
+	1. Primero se calcula el indice en el que el valor buscado deberia ser incertado y se niega "-2" el valor anterior nos dice que el valor buscado deveria de ser insertado en la posicion 2 y ahora le restamos -1 el indice regreasado seria "-3"
+Si la matriz esta ordenada y encuentra el elemento, retornara el indice del elemento.	
+
+ArrayList
+	constructores
+		ArrayList list1 = new ArrayList();
+		ArrayList list2 = new ArrayList(10);
+		ArrayList list3 = new ArrayList(list2);
+		
+	ArrayList<String> list4 = new ArrayList<String>();
+	ArrayList<String> list5 = new ArrayList<>();	// apartir de Java7 los diamantes del lado derecho no son obligatorios
+		
+una "clase" llamada E. No se preocupe, no es realmente una clase. E es utilizado por convención en genéricos
+para significar "cualquier clase que este conjunto pueda contener".
+
+Metodos()
+	boolean add(E element)
+	void add(int index, E element)		
+	
+	remove(): eliminan el primer valor coincidente en el ArrayLis o elimina el indice especificado.
+		boolean remove(Object object) --> Regresa true si se elimino
+		E remove(int index) --> Regresa el elemento q se elimino.
+	
+	set(): Cambia un elemento si cambiar el tamaño
+		E set(int index, E newElement) --> Regresa el elemento modificado
+	
+	isEmpty() and size()
+	clear() una manera fácil de descartar todos los elementos.
+	contains() verifica que un valor este en la lista	
+	equals() Verifica si dos listas tienen los mismos datos en el mismo orden.	
+
+Wrapper Classes
+	intValue () regresa un Wraper a su primitivo
+	los metodos de tipo parseInt () devuelven primitivos.
+	valueOf() retorna un Wrapper class
+		Si el dato no es correcto // throws NumberFormatException
+		
+		int primitive = Integer.parseInt("123");
+		Integer wrapper = Integer.valueOf("123");
+
+		__String a primitivo__			__String a Wraper__
+		Double.parseDouble("1"); 	 	Boolean.valueOf("TRUE");
+		Integer.parseInt("1");			Byte.valueOf("2");
+		Short.parseShort("1");			Short.valueOf("2");
+
+Character no participa en el Parse/valueOf	no tiene estos metodos.
+
+Desde java 5, java hace un proceso llamado autoboxing, de primitivo lo pasa a wraper automaticamente.
+	
+	heights.add(null);
+	int h = heights.get(0); // NullPointerException ya que tratamos de hacer un unboxing de un nulo, queremos guardar un nulo en un primitivo.
+	
+	****************************
+	*** List<Integer> numbers = new ArrayList<>();
+	*** numbers.add(1);
+	*** numbers.add(2);
+	*** numbers.remove(1);
+	*** System.out.println(numbers);
+	****************************
+	
+	Tener cuidado en el ejemplo anterior se elimina el objeto en el indice 1 para eliminar el objeto es necesario numbers.remove(new Integer(2))
+	
+	Object[] objectArray = list.toArray(); Convertir lista a matriz, solo que la lista siempre se convierte a una matriz object[].
+	String[] objectArray = list2.toArray(); Esto arroja un error de compilacion ya que queremos almacenar una matriz de object[] en una de String[].
+	
+	Para qupodamos especificar el tipo se hace de la siguiente forma:
+	String[] stringArray = list.toArray(new String[0]); En este ajemplo especificamos un tamaño pero si la lista devulta no cabe en esta, no importa devolvera otra matriz ajustandola al tamaño de la lista.
+	
+	List<String> list = Arrays.asList(array); esto combierte una matriz a una lista pero tanto la matriz como la lista quedan enlazados. Si se modifica uno se modifica el otro y la lista queda con un tamaño fijo no se puede modificar el tamaño. Si tratamos de agregar un elemento o eliminarlo error en tiempo de ejecición.
+	
+	Para ordenar Arraylist se hace de la siguiente forma: Collections.sort(nameLista);
+	
+	WORKING WITH DATES import java.time.*;
+	
+	LocalDate: Contiene solo una fecha, sin hora y sin zona horaria.
+	LocalTime: Contiene una hora sin fecha y sin zonaHoraia
+	LocalDateTime: Contiene Fecha y hora sin zona horaria.
+	ZonedDateTime: Maneja zonas horarias
+	
+	System.out.println(LocalDate.now());
+	System.out.println(LocalTime.now());
+	System.out.println(LocalDateTime.now());
+	
+	Java usa T para separe la fecha y la hora al convertir LocalDateTime en una Cadena.
+	
+	public static LocalDate of(int year, int month, int dayOfMonth)
+	public static LocalDate of(int year, Month month, int dayOfMonth)
+	
+	LocalDateTime.of(2015, Month.JANUARY, 20, 6, 15, 30);
+	LocalDateTime.of(date1, time1);
+	
+	LocalDate d = new LocalDate(); // DOES NOT COMPILE
+	
+	The LocalDate and LocalDateTime classes are immutable
+	
+	LocalDate tiene toEpochDay() para conocer el numero de dias
+	transcurridos desde 01/01/1970 a la fecha
+	
+	LocalDateTime tiene toEpochTime() para conocer el numero de segundos transcurridos desde 01/01/1970 a la fecha
+	
+	No se pueden encadenar metodos en un Periodo.
+----------
+
+1. A,D
+2. A,C,D
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+19.
+20.
+
+----------	
+	
+	
+	
+	
+	
+	
+COMENTARIO MIOS
+
+referencia: numero en memoria,  La referencia tiene la ubicación de memoria del objeto
+instancia: es cuando haces una copia completa de los atributos de una clase en una dirección de memoria diferente. instancia indica la relación de un objeto con su clase.
+Las clases son generales, los objetos son específicos.
+Pasos de parametros por referencia, en realidad pasas la dirección de memoria de tu objeto
+
+Ejemplo
+
+Object objOriginal = new Object(); 
+
+Object objOriginal (referencia colocas el objeto con una direccion de memoria) 
+objOriginal = new Object() (Instancia, aqui es donde le dices cuanto espacio en memoria le vas a asignar) 
+
+69
